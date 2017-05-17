@@ -2,6 +2,7 @@ package com.example.stevenliao.httpconnect;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -11,11 +12,14 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     String connect = "";
+    EditText Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         try {
             URL url = new URL(connect);
