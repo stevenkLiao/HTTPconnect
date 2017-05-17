@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HTTPconnect</string>
+    <string name="Name">Name</string>
+    <string name="IP">IP</string>
 </resources>
