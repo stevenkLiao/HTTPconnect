@@ -1,21 +1,17 @@
 package com.example.stevenliao.httpconnect;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOError;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -40,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
         conBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String NameCon = Name.getText().toString();
+//                String NameCon = Name.getText().toString();
                 String IPcon = IP.getText().toString();
-                connect = IPcon + "?Name=" + NameCon;
+//                connect = IPcon + "?Name=" + NameCon;
+                connect = IPcon;
                 mConnectThread = new ConnectThread(connect);
+                Log.d("URL is :", connect);
                 mConnectThread.start();
 
             }
@@ -72,11 +70,13 @@ public class MainActivity extends AppCompatActivity {
 
                 conn.setDoInput(true);
                 Reader in = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                int data = in.read();
+                int data = 0;
                 String get = "";
                 while (data != -1) {
-                    get = get + data;
+                    data = in.read();
+                    get = get + (char)data;
                 }
+                Log.d("URL data is", get);
                 Message msg;
                 msg = mhandler.obtainMessage(1,get);
                 mhandler.sendMessage(msg);
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 1:
                     String show = (String)msg.obj;
+                    Log.d("URL msg",show);
                     readView.setText(show);
                     break;
             }
